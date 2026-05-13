@@ -167,7 +167,7 @@ impl Drop for CallbackHandle {
                     cb.remove(&self.id);
                 }
                 Err(err) => {
-                    eprintln!("error while dropping callback: {:?}", err);
+                    tracing::error!("error while dropping callback: {:?}", err);
                 }
             }
         }

@@ -20,16 +20,11 @@ serde = ["dep:serde", "bitflags/serde"]
 [workspace]
 members = [
     "./steamworks-sys",
-    "examples/chat-example",
-    "examples/workshop",
-    "examples/lobby",
-    "examples/networking-messages",
-    "examples/networking-sockets",
-    "examples/game-server",
 ]
 
 [dependencies]
 steamworks-sys = { path = "./steamworks-sys", version = "0.13.0" }
+tracing = "0.1"
 thiserror = "2.0"
 bitflags = "2.9"
 serde = { version = "1.0", features = ["derive"], optional = true }

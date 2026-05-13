@@ -117,11 +117,11 @@ unsafe extern "C" fn c_warning_callback(level: i32, msg: *const c_char) {
     let res = panic::catch_unwind(panic::AssertUnwindSafe(|| cb(level, s)));
     if let Err(err) = res {
         if let Some(err) = err.downcast_ref::<&str>() {
-            println!("Steam warning callback panicked: {}", err);
+            tracing::error!("Steam warning callback panicked: {}", err);
         } else if let Some(err) = err.downcast_ref::<String>() {
-            println!("Steam warning callback panicked: {}", err);
+            tracing::error!("Steam warning callback panicked: {}", err);
         } else {
-            println!("Steam warning callback panicked");
+            tracing::error!("Steam warning callback panicked");
         }
         abort();
     }

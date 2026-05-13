@@ -1,4 +1,6 @@
 #![doc = include_str!("../README.md")]
+#![cfg_attr(not(test), deny(clippy::print_stdout))]
+#![cfg_attr(not(test), deny(clippy::print_stderr))]
 
 #[macro_use]
 extern crate thiserror;

@@ -2009,7 +2009,7 @@ extern "C" fn free_rust_message_buffer(message: *mut sys::SteamNetworkingMessage
         // Create the box again and drop it immediately
         let _ = Box::from_raw(buffer.as_mut_ptr());
     }) {
-        eprintln!("{:?}", e);
+        tracing::error!("{:?}", e);
     }
 }
 

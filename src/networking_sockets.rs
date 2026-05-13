@@ -563,7 +563,7 @@ impl Drop for InnerSocket {
             .sockets
             .remove(&self.handle)
         {
-            eprintln!("error while dropping InnerSocket: socket was already removed")
+            tracing::error!("error while dropping InnerSocket: socket was already removed")
         }
     }
 }
