@@ -40,25 +40,37 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         panic!("Unsupported OS");
     };
 
+    let mut redist_path = None;
     if triple.contains("windows") {
         let dll_file = format!("{}.dll", lib);
         let lib_file = format!("{}.lib", lib);
+        redist_path = Some(link_path.join(&dll_file));
         fs::copy(link_path.join(&dll_file), out_path.join(dll_file))?;
         fs::copy(link_path.join(&lib_file), out_path.join(lib_file))?;
     } else if triple.contains("darwin") {
+        redist_path = Some(link_path.join("libsteam_api.dylib"));
+
         fs::copy(
             link_path.join("libsteam_api.dylib"),
             out_path.join("libsteam_api.dylib"),
         )?;
     } else if triple.contains("linux") {
+        redist_path = Some(link_path.join("libsteam_api.so"));
+
         fs::copy(
             link_path.join("libsteam_api.so"),
             out_path.join("libsteam_api.so"),
         )?;
     }
 
-    println!("cargo:rustc-link-search={}", out_path.display());
-    println!("cargo:rustc-link-lib=dylib={}", lib);
+    println!("cargo::rustc-link-search=native={}", out_path.display());
+    println!("cargo::rustc-link-lib=dylib={}", lib);
+
+    // let the people know:
+    println!(
+        "cargo::metadata=redist_file={}",
+        redist_path.unwrap().display()
+    );
 
     #[cfg(feature = "rebuild-bindings")]
     {
