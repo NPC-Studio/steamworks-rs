@@ -280,15 +280,8 @@ impl Utils {
         y: i32,
         width: i32,
         height: i32,
-        mut dismissed_cb: F,
-    ) -> bool
-    where
-        F: FnMut() + 'static + Send, // TODO: Support FnOnce callbacks
-    {
+    ) -> bool {
         unsafe {
-            register_callback(&self._inner, move |_: FloatingGamepadTextInputDismissed| {
-                dismissed_cb();
-            });
             sys::SteamAPI_ISteamUtils_ShowFloatingGamepadTextInput(
                 self.utils,
                 keyboard_mode.into(),
