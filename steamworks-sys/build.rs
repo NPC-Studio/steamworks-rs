@@ -69,7 +69,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // let the people know:
     println!(
         "cargo::metadata=redist_file={}",
-        redist_path.unwrap().display()
+        redist_path.unwrap().parent().unwrap().display()
     );
 
     #[cfg(feature = "rebuild-bindings")]

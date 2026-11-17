@@ -10,7 +10,7 @@ keywords = ["steam", "gamedev"]
 categories = ["games"]
 edition = "2021"
 rust-version = "1.80.0"
-links = "steamworks_redist"
+links = "maybe-redist-steamworks"
 
 [features]
 default = []
